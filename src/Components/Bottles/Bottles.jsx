@@ -7,6 +7,7 @@ import './Bottles.css'
 
 const bottles = () => {
     const [bottles, setBottles] = useState([])
+    const [cart, setCart] = useState([])
 
     useEffect(() => {
         fetch('bottles.json')
@@ -14,12 +15,26 @@ const bottles = () => {
         .then(data => setBottles(data))
     }
         ,[])
+
+        const handleAddtocart = bottle =>{
+            const newCart = [...cart,bottle];
+            setCart(newCart);
+        } 
+
     return (
         <div>
             <h3>Bottles Here : {bottles.length} </h3>
+            <h3>Added to cart : {cart.length} </h3>
             <div className="bottle-container">
             {
-                bottles.map(bottle => <Bottle key={bottle.id} bottle={bottle}></Bottle>)
+                bottles.map(bottle => 
+                <Bottle 
+                     key={bottle.id}
+                     bottle={bottle} 
+                     handleAddtocart = {handleAddtocart} 
+                >
+
+                     </Bottle>)
             }
             </div>
         </div>
